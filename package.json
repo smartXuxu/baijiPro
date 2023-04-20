@@ -12,6 +12,7 @@
     "build": "webpack --mode=production --config ./webpack.config.js"
   },
   "dependencies": {
+    "@ant-design/react-native": "^5.0.4",
     "babel-plugin-import": "^1.13.6",
     "process": "^0.11.10",
     "react": "18.0.0",
