@@ -1,10 +1,10 @@
 // 抽屉组件 
-import React, { useState,useRef,useEffect, useCallback,useImperativeHandle } from 'react'
+import React, { useState,useRef,useEffect,forwardRef, useCallback,useImperativeHandle } from 'react'
 
 import { ScrollView, StyleSheet, Text, View ,Animated,Dimensions,Modal,} from 'react-native'
 import { Button, Drawer, List, WhiteSpace, Grid, Icon, SearchBar } from '@ant-design/react-native'
 import PropTypes from 'prop-types' 
-const Drawers = (props) => {
+const Drawers =  React.forwardRef((props,ref) => {
     const Item = List.Item
     const WINDOW = Dimensions.get('window');
     const [drawer, setDrawer] = useState(false);
@@ -17,9 +17,13 @@ const Drawers = (props) => {
     //用useImperativeHandle暴露一些外部ref能访问的属性
     useImperativeHandle(props.onRef,()=>{
       return {
-        openDrawer:openDrawer
+        openDrawer:openDrawer,
+       // closeDrawer:closeDrawer,
       }
-    })
+    });
+  //   componentDidMount((props)=> {
+  //    props.onRef &&props.onRef();
+  // });
     function closeDrawer() {
         props.closeDrawer && props.closeDrawer()
         animate(0);
@@ -94,17 +98,29 @@ const Drawers = (props) => {
             reg: '\\D',
         },
         {
+          id:'12',
+          title:'任意字符',
+          reg:'.*'
+        },
+        {
             //匹配包括下划线的任何单词字符 \w
-            id: "12",
+            id: "13",
             title: "单词字符",
             reg: '\\w',
         },
         {
             //非单词字符 \W
-            id: "13",
+            id: "14",
             title: "非单词字符",
             reg: '\\W',
-        }
+        },
+        
+        {
+          id:'15',
+          title:'除了\\n以外的字符',
+          reg:'.'
+        },
+
     ];
  // 添加动画效果
  function animate (toValue) {
@@ -164,7 +180,7 @@ const Drawers = (props) => {
     return (
         // ,drawer?'':{display:'none'} height:Dimensions.get('window').height 
         // <Modal   transparent={true}  onRequestClose={() => {closeDrawer()}} >
-          <Animated.View style={[{position:'absolute',left:0,top:0,zIndex:2,width:'100%',height:'100%', overflow:'hidden',backgroundColor:'rgba(0,0,0,.6)'},{ transform: [getPosition()]}]} visible={show} >
+          <Animated.View style={[{position:'absolute',left:0,top:0,zIndex:2,width:'100%',height:'100%', overflow:'hidden',backgroundColor:'rgba(0,0,0,.6)',flex:1,},{ transform: [getPosition()]}]} visible={show} >
             <View style={{height:'100vh',overflow:'scroll'}}>
             <ScrollView style={{ flex: 1, backgroundColor: '#f5f5f9',width:"70%"}}
                 // automaticallyAdjustContentInsets={false}
@@ -172,12 +188,12 @@ const Drawers = (props) => {
                 // showsVerticalScrollIndicator={false}
                 // nestedScrollEnabled={true}
                 >
-                  <Text style={{alignItems:'center'}}>
+                  <Text style={{alignItems:'center',fontSize:20}}>
                     <Text style={{fontSize:36,color:'#666',marginHorizontal:10,}} onPress={()=>{closeDrawer()}}>x</Text>常用正则</Text>
                 <List>
                     {
                         DATA.map((item, index) => {
-                            return (<Item key={item.id} onPress={() => { onSubmitPress(item),closeDrawer() }} style={[{textAlign:'center',paddingBottom:10,}]}>{item.title}</Item>)
+                            return (<Item key={item.id} onPress={() => { onSubmitPress(item),closeDrawer() }} style={[{textAlign:'center',paddingVertical:5,}]}>{item.title}</Item>)
                         })
                     }
                 </List>
@@ -190,7 +206,7 @@ const Drawers = (props) => {
            
     )
 
-}
+})
 
 Drawers.propTypes = {
     // visible: PropTypes.show, // 控制抽屉显影状态
