@@ -1,14 +1,14 @@
 
-import { Text, StyleSheet,Image, View ,Alert,ScrollView,TextInput,Dimensions,Clipboard,TouchableHighlight} from 'react-native'
-import React, { useState, useEffect } from 'react'
+import { Text, StyleSheet,Image, View ,Alert,ScrollView,TextInput,Dimensions,TouchableHighlight} from 'react-native'
+import React, { useState, useEffect ,useRef} from 'react'
 import { Button, List, Radio, Flex,Toast} from '@ant-design/react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Clipboard from '@react-native-clipboard/clipboard';
 //import { Navigation } from 'react-native-navigation'
 import Drawers from './drawer'
 const Index=(props)=>{
-  //const refs = {};
   const RadioItem = Radio.RadioItem;
-  let DrawerChild=React.createRef();
+  let DrawerChild=useRef();
    // refs[0] = DrawerChild;
       const [inputText,setInputText] = useState('')
       const [optText,setOptText] = useState('正则')
@@ -35,9 +35,6 @@ const Index=(props)=>{
       const [matchArr,setMatchArr]=useState([]);
      useEffect(() => {
       setBeginINput(beginINput);
-     // DrawerChild=React.createRef();
-    //  DrawerChild=refs[0]
-    //   console.log(refs)
   }, [beginINput]);
   //设置本地存储
   const setData = async (name,value) => {
@@ -443,7 +440,7 @@ const Index=(props)=>{
     return (
         <View style={styles.container} >
           <Drawers visible={drawerShow}
-                  showDrawers={drawerShow} onRef={DrawerChild} ref={DrawerChild}
+                  showDrawers={drawerShow} onRef={DrawerChild}
                   setCommonReg={(item)=>{drawReg(item)}}  
                   closeDrawer={() => {
                   setDrawerShow(false)

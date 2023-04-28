@@ -99,7 +99,7 @@ const Drawers =  React.forwardRef((props,ref) => {
         },
         {
           id:'12',
-          title:'任意字符',
+          title:'任意字符(一次或多次）',
           reg:'.*'
         },
         {
@@ -193,7 +193,7 @@ const Drawers =  React.forwardRef((props,ref) => {
                 <List>
                     {
                         DATA.map((item, index) => {
-                            return (<Item key={item.id} onPress={() => { onSubmitPress(item),closeDrawer() }} style={[{textAlign:'center',paddingVertical:5,}]}>{item.title}</Item>)
+                            return (<Item key={item.id} onPress={() => { onSubmitPress(item),closeDrawer() }} style={[{textAlign:'center',minHeight:50,lineHeight:50}]}>{item.title}</Item>)
                         })
                     }
                 </List>
