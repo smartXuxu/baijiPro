@@ -448,7 +448,7 @@ const Index=(props)=>{
                 />
          
         <View style={styles.navTab}>
-         <TouchableHighlight  underlayColor={'rgba(0,0,0,0)'} onPress={()=>{ setDrawerShow(true),openDrawers()}} style={{marginRight:30,}}> 
+         <TouchableHighlight  underlayColor={'rgba(0,0,0,0)'} onPress={()=>{ setDrawerShow(true),openDrawers()}} style={{marginRight:6, marginLeft:15,width:50,height:50,alignItems:'center',}}> 
          <Image
             style={styles.tinyLogo}
             source={require('../assets/images/meuns.png')}
@@ -456,8 +456,8 @@ const Index=(props)=>{
        </TouchableHighlight>
             <Text style={[styles.text,navIndex==1?styles.actText:'']} onPress={()=>{setNavIndex(1)}}>正则生成</Text> 
         </View>
-        <ScrollView style={{flex: 1}}>
-        <View style={{width:'100%',flexWrap:'wrap',flexDirection:"column"}}>
+        <ScrollView style={{flex: 1,padding:15}}>
+        <View style={{width:'100%',}}>
                 <View style={[styles.beginBox,styles.boxIns]}>
                   <Text style={[styles.textReg]}>step1:规则示例：数字|字母，或特定字符例如'vx|微信'等 （| 代表或者，| 前整体匹配）</Text>
                 <TextInput placeholder='请输入匹配关键词' multiline={true} numberOfLines={2} placeholderTextColor="#999" style={[styles.boxIn]} value={beginINput} onChangeText={(val)=>{inBeginInput(val)}} onBlur={()=>{setRegInput(0)}}/>
@@ -470,11 +470,11 @@ const Index=(props)=>{
                 <View style={[styles.boxOpt]}>
               
               <View  style={[styles.btnBox]}>
-                  <List renderHeader={ 'step3:特定位置（可选）：' }>
+                  <List renderHeader={ 'step3:特定位置（可选）：' }  style={{width:'100%'}}>
                     <Radio.Group
                     onChange={onGroupPosition}
-                    value={positionValue} >
-                       <Flex style={{flexWrap:'wrap',alignItems:'center'}}>
+                    value={positionValue}  style={{flexWrap:'wrap',alignItems:'center',width:'100%'}}>
+                       <Flex style={{flexWrap:'wrap',alignItems:'center',width:'100%'}}>
                     <Radio value={0} style={styles.radioMar}><Text >不限</Text></Radio>
                     <Radio value={1} style={styles.radioMar}><Text>开头</Text></Radio>
                     <Radio value={2} style={styles.radioMar}><Text>结尾</Text></Radio>
@@ -505,17 +505,13 @@ const Index=(props)=>{
                   </View>
                 </View>
                 {/* 是否全局匹配，多行匹配 区分大小写 */}
-
-                <View style={styles.sigCreBox}>
-                  <Button  style={styles.serchBtn} type="primary" onPress={()=>{cerateResult()}}>生成</Button>
+                  <Button style={styles.serchBtn} type="primary" onPress={()=>{cerateResult()}}>生成</Button>
+                  <View style={styles.sigCreBox}>
                   <Text style={[styles.color666]}>单次结果预览：</Text>
-                  <View style={{marginTop:4}}>
-                    {sigReg?<View style={{flexDirection:'row',justifyContent:'space-between', backgroundColor:"#f5f5f9",alignItems:'center'}}>
-                      <Text style={[styles.preview]}>/{sigReg}/</Text>
-                      <Button type="ghost" size="small" onPress={()=>{clipbordText('/'+sigReg+'/')}} style={{marginRight:6}}>复制</Button>
+                    {sigReg?<View style={{flexDirection:'row',justifyContent:'space-between', backgroundColor:"#f5f5f9",alignItems:'center',width:'100%'}}><Text style={[styles.preview]}>/{sigReg}/</Text><Button type="ghost" size="small" onPress={()=>{clipbordText('/'+sigReg+'/')}} style={{marginRight:6}}>复制</Button>
                       </View>:<Text></Text>
                       }
-                  </View>
+                 
                 </View>
 
                 <View style={{marginTop:10,}}>
@@ -529,7 +525,7 @@ const Index=(props)=>{
                 <View style={styles.allBox}>
                   <Text style={[styles.color666]}>合计预览：</Text>
                   {
-                    allReg?<View style={{flexDirection:'row',justifyContent:'space-between', backgroundColor:"#f5f5f9",alignItems:'center'}}><Text style={[styles.preview]}>/{allReg}/</Text><Button type="ghost" size="small" onPress={()=>{clipbordText('/'+allReg+'/')}} style={{marginRight:6}}>复制</Button></View>:<Text></Text>
+                    allReg?<View style={{flexDirection:'row',justifyContent:'space-between', backgroundColor:"#f5f5f9",alignItems:'center',width:'100%'}}><Text style={[styles.preview]}>/{allReg}/</Text><Button type="ghost" size="small" onPress={()=>{clipbordText('/'+allReg+'/')}} style={{marginRight:6}}>复制</Button></View>:<Text></Text>
                   }
                   
                 </View>
@@ -550,7 +546,7 @@ const Index=(props)=>{
                     </Radio.Group>
           
                     </List>
-                  <Button onPress={()=>{regTest()}} style={{marginVertical:10}}>校验</Button>
+                  <Button onPress={()=>{regTest()}} style={{marginVertical:10,width:'100%'}}>校验</Button>
                   <Text>测试结果：{testRes}</Text>
                   {
                     testValue==1&&matchArr.length?
@@ -560,7 +556,6 @@ const Index=(props)=>{
                       })
                       }
                       </View>
-                    
                     :<Text></Text>
                   }
                   </View>
@@ -578,9 +573,9 @@ const styles = StyleSheet.create({
       borderColor:"red",
     },
     container:{
-        padding:15,
+       // padding:15,
         width:'100%',
-        height:"100vh",
+        height:'100%',
         flex:1,
        // overflow:'scroll',
       
@@ -628,7 +623,8 @@ const styles = StyleSheet.create({
     tinyLogo:{
       width:21,
       height:15,
-      justifyContent: 'center' ,
+      alignItems: 'center' ,
+      marginTop:20,
     },
     text:{
         fontSize:20,
@@ -638,7 +634,7 @@ const styles = StyleSheet.create({
     },
     firstText:{
         marginRight:40,
-        marginLeft:30,
+       // marginLeft:30,
     },
     actText:{
        color:'#ff650d',
@@ -719,6 +715,7 @@ const styles = StyleSheet.create({
     borderRadius:10,
     marginTop:6,
     padding:10,
+    width:'100%',
 
    },
    beginBox:{
@@ -753,7 +750,9 @@ const styles = StyleSheet.create({
    serchBtn:{
     marginTop:10,
     borderRadius:10,
-    height:30,
+    height:40,
+    lineHeight:40,
+    width:'100%',
     
 
    },

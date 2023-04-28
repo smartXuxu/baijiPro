@@ -126,7 +126,7 @@ const Drawers =  React.forwardRef((props,ref) => {
  function animate (toValue) {
     Animated.timing(animateValue, {
       toValue: toValue,
-      duration: 300,
+      duration: 200,
       useNativeDriver: true,
       friction: 9,
     }).start();
@@ -181,15 +181,16 @@ const Drawers =  React.forwardRef((props,ref) => {
         // ,drawer?'':{display:'none'} height:Dimensions.get('window').height 
         // <Modal   transparent={true}  onRequestClose={() => {closeDrawer()}} >
           <Animated.View style={[{position:'absolute',left:0,top:0,zIndex:2,width:'100%',height:'100%', overflow:'hidden',backgroundColor:'rgba(0,0,0,.6)',flex:1,},{ transform: [getPosition()]}]} visible={show} >
-            <View style={{height:'100vh',overflow:'scroll'}}>
-            <ScrollView style={{ flex: 1, backgroundColor: '#f5f5f9',width:"70%"}}
+            <View style={{height:Dimensions.get('window').height+16,overflow:'scroll'}}>
+            <View style={{alignItems:'center',fontSize:20,backgroundColor: '#f5f5f9',width:'70%',flexDirection:'row',alignItems:'center'}}>
+                    <Text style={{fontSize:36,color:'#666',marginLeft:10,width:50,marginTop:-10,}} onPress={()=>{closeDrawer()}}>x</Text><Text style={{fontSize:20,color:'#666'}}>常用正则</Text></View>
+            <ScrollView style={{ flex: 1, backgroundColor: '#f5f5f9',width:"70%",}}
                 // automaticallyAdjustContentInsets={false}
                 // showsHorizontalScrollIndicator={false}
                 // showsVerticalScrollIndicator={false}
                 // nestedScrollEnabled={true}
                 >
-                  <Text style={{alignItems:'center',fontSize:20}}>
-                    <Text style={{fontSize:36,color:'#666',marginHorizontal:10,}} onPress={()=>{closeDrawer()}}>x</Text>常用正则</Text>
+                 
                 <List>
                     {
                         DATA.map((item, index) => {
