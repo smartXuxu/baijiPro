@@ -456,7 +456,7 @@ const Index=(props)=>{
        </TouchableHighlight>
             <Text style={[styles.text,navIndex==1?styles.actText:'']} onPress={()=>{setNavIndex(1)}}>正则生成</Text> 
         </View>
-        <ScrollView style={{flex: 1,padding:15}}>
+        <ScrollView style={{flex: 1,paddingHorizontal:15}}>
         <View style={{width:'100%',}}>
                 <View style={[styles.beginBox,styles.boxIns]}>
                   <Text style={[styles.textReg]}>step1:规则示例：数字|字母，或特定字符例如'vx|微信'等 （| 代表或者，| 前整体匹配）</Text>
