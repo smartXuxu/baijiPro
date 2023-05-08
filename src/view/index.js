@@ -129,11 +129,17 @@ const Index=(props)=>{
 
       }
       function inNumInput(numStr){
-        setNumINput(numStr.replace(/[\s+,\',\",\‘,\’,\“,\”,\《,\》,a-zA-z,\!,\`,\-,\+,\=,\|]/g,''))
+        console.log(numStr)
+        setNumINput(numStr.replace(/[\s+,\',\",\‘,\’,\“,\”,\《,\》,a-zA-z,\!,\`,\-,\+,\=,\|,\u4e00-\u9fa5]/g,''))
+
+      };
+     function onBlurNum(){
+        let numStr=numINput;
        if(numStr.indexOf('~') <0&&numStr.indexOf('>') <0&&numStr.indexOf('<') <0){
         //非特定字符
         if(isNaN(Number(numStr))){
-          setNumReg('')
+          setNumReg('');
+          Toast('请检验step2格式！')
           return 
         }
        }
@@ -154,7 +160,6 @@ const Index=(props)=>{
         } else {
           setNumReg("{"+numStr+"}");
         }
-
       };
       
       function setRegInput(num){
@@ -482,7 +487,7 @@ const Index=(props)=>{
                 </View>
                 <View style={[styles.secBox,styles.boxIns]}>
                   <Text style={[styles.textReg]}>step2:出现次数（限定符,可选，默认1） 具体写法如下：大于x(&gt;x)、小于y(&lt;y)、n到m之间(n~m)</Text>
-                <TextInput placeholder='请输入位数' placeholderTextColor="#999" multiline={true} numberOfLines={1}  style={[styles.boxIn]} value={numINput} onChangeText={(val)=>{inNumInput(val)}} />
+                <TextInput placeholder='请输入位数' placeholderTextColor="#999" multiline={true} numberOfLines={1}  style={[styles.boxIn]} value={numINput} onBlur={(val)=>{onBlurNum()}} onChangeText={(val)=>{inNumInput(val)}} />
                 </View>
                
                 <View style={[styles.boxOpt]}>

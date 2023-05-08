@@ -1,7 +1,7 @@
 // 抽屉组件 
-import React, { useState,useRef,useEffect,forwardRef, useCallback,useImperativeHandle } from 'react'
+import React, { useState,useRef,useEffect,forwardRef, useCallback,useImperativeHandle} from 'react'
 
-import { ScrollView, StyleSheet, Text, View ,Animated,Dimensions,Modal,} from 'react-native'
+import { ScrollView, StyleSheet, Text, View ,Animated,Dimensions,Modal,TouchableHighlight} from 'react-native'
 import { Button, Drawer, List, WhiteSpace, Grid, Icon, SearchBar } from '@ant-design/react-native'
 import PropTypes from 'prop-types' 
 const Drawers =  React.forwardRef((props,ref) => {
@@ -180,17 +180,16 @@ const Drawers =  React.forwardRef((props,ref) => {
     return (
         // ,drawer?'':{display:'none'} height:Dimensions.get('window').height 
         // <Modal   transparent={true}  onRequestClose={() => {closeDrawer()}} >
-          <Animated.View style={[{position:'absolute',left:0,top:0,zIndex:2,width:'100%',height:'100%', overflow:'hidden',backgroundColor:'rgba(0,0,0,.6)',flex:1,},{ transform: [getPosition()]}]} visible={show} >
-            <View style={{height:Dimensions.get('window').height+16,overflow:'scroll'}}>
-            <View style={{alignItems:'center',fontSize:20,backgroundColor: '#f5f5f9',width:'70%',flexDirection:'row',alignItems:'center'}}>
+          <Animated.View style={[{position:'absolute',left:0,top:0,zIndex:2,width:'100%',height:'100%', overflow:'hidden',flex:1,},{ transform: [getPosition()]}]} visible={show}>
+            <TouchableHighlight onPress={()=>closeDrawer()}  underlayColor={'rgba(0,0,0,0.4)'} style={{backgroundColor:'rgba(0,0,0,.6)',width:'100%',height:'100%',position:'absolute',zIndex:2,}} >
+              <View></View>
+            </TouchableHighlight>
+            
+            <View style={{height:Dimensions.get('window').height+16,overflow:'scroll',position:"relative",zIndex:3,width:'70%'}}>
+            <View style={{alignItems:'center',fontSize:20,backgroundColor: '#f5f5f9',width:'100%',flexDirection:'row',alignItems:'center'}}>
                     <Text style={{fontSize:36,color:'#666',marginLeft:10,width:50,marginTop:-10,}} onPress={()=>{closeDrawer()}}>x</Text><Text style={{fontSize:20,color:'#666'}}>常用正则</Text></View>
-            <ScrollView style={{ flex: 1, backgroundColor: '#f5f5f9',width:"70%",}}
-                // automaticallyAdjustContentInsets={false}
-                // showsHorizontalScrollIndicator={false}
-                // showsVerticalScrollIndicator={false}
-                // nestedScrollEnabled={true}
+            <ScrollView style={{ flex: 1, backgroundColor: '#f5f5f9',width:"100%",}}
                 >
-                 
                 <List>
                     {
                         DATA.map((item, index) => {
