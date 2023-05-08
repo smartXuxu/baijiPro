@@ -99,7 +99,7 @@ const Drawers =  React.forwardRef((props,ref) => {
         },
         {
           id:'12',
-          title:'任意字符(一次或多次）',
+          title:'任意字符(零次或多次）',
           reg:'.*'
         },
         {

@@ -8,7 +8,10 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import Drawers from './drawer'
 const Index=(props)=>{
   const RadioItem = Radio.RadioItem;
+  
+
   let DrawerChild=useRef();
+  let keyRef=useRef();
    // refs[0] = DrawerChild;
       const [inputText,setInputText] = useState('')
       const [optText,setOptText] = useState('正则')
@@ -339,8 +342,11 @@ const Index=(props)=>{
             setSigReg(regArr);
             setData('sigReg',regArr);
             if(allReg){
+              //noRepeat()
+              console.log(allReg+"|"+regArr)
               setAllReg(allReg+"|"+regArr);
             }else{
+              console.log(regArr)
               setAllReg(regArr);
             }
            
@@ -419,9 +425,11 @@ const Index=(props)=>{
       function drawReg(item){
       //  resetOpt();
       console.log(beginINput)
-        setBeginINput(beginINput+item.reg);
+       
        // cerateResult();
-         setBeginReg(beginINput+item.reg);
+       setINputNativeProps()
+       setBeginINput(beginINput+item.reg);
+        setBeginReg(beginINput+item.reg);
         // setAllReg(beginINput+item.reg);
         // setSigReg(beginINput+item.reg);
         console.log(item)
@@ -436,7 +444,17 @@ const Index=(props)=>{
       // refs[0].current&&refs[0].current.openDrawer()
         DrawerChild.current&& DrawerChild.current.openDrawer();
       };
-      
+      //设置输入框焦点展示
+     function setINputNativeProps(){
+      console.log(keyRef.current)
+      keyRef.current&& keyRef.current.focus();
+      setTimeout(function(){
+        console.log( keyRef.current&&keyRef.current._lastNativeSelection || null)
+      },200)
+    
+     // keyRef.current&& keyRef.current.setNativeProps({selection: { start: 1, end: 1 }})
+     };
+   
     return (
         <View style={styles.container} >
           <Drawers visible={drawerShow}
@@ -460,7 +478,7 @@ const Index=(props)=>{
         <View style={{width:'100%',}}>
                 <View style={[styles.beginBox,styles.boxIns]}>
                   <Text style={[styles.textReg]}>step1:规则示例：数字|字母，或特定字符例如'vx|微信'等 （| 代表或者，| 前整体匹配）</Text>
-                <TextInput placeholder='请输入匹配关键词' multiline={true} numberOfLines={2} placeholderTextColor="#999" style={[styles.boxIn]} value={beginINput} onChangeText={(val)=>{inBeginInput(val)}} onBlur={()=>{setRegInput(0)}}/>
+                <TextInput placeholder='请输入匹配关键词' multiline={true} numberOfLines={2} placeholderTextColor="#999" style={[styles.boxIn]} value={beginINput} ref={keyRef} onChangeText={(val)=>{inBeginInput(val)}} onBlur={()=>{setRegInput(0)}}/>
                 </View>
                 <View style={[styles.secBox,styles.boxIns]}>
                   <Text style={[styles.textReg]}>step2:出现次数（限定符,可选，默认1） 具体写法如下：大于x(&gt;x)、小于y(&lt;y)、n到m之间(n~m)</Text>
